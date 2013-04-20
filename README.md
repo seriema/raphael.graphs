@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/seriema/raphael.graphs.png?branch=master)](https://travis-ci.org/seriema/raphael.graphs)
+
 # raphael.graphs
 
 Some simple graphs for Raphaël.
