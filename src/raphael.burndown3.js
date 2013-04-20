@@ -134,158 +134,158 @@ function createPath(storyPoints) {
 */
 
 	var burndown = function(guidelineDataStop, burndownDataStop, labels, width, height, colors) {
-			var burndown = {};
-			var paper = this;
-			var invertY = math.invertY.bind(null, height);
-			var yMax = math.findYMax(burndownDataStop[0]);
+        var burndown = {};
+        var paper = this;
+        var invertY = math.invertY.bind(null, height);
+        var yMax = math.findYMax(burndownDataStop[0]);
 
-			function createPath(yValues) {
-				var xStep = (width - defaults.gutter.x) / (yValues.length - 1);
-				var yStep = (height - defaults.gutter.y) / yMax;
-				var path = 'M' + defaults.gutter.x + ',' + invertY(yValues[0] * yStep);
+        function createPath(yValues) {
+            var xStep = (width - defaults.gutter.x) / (yValues.length - 1);
+            var yStep = (height - defaults.gutter.y) / yMax;
+            var path = 'M' + defaults.gutter.x + ',' + invertY(yValues[0] * yStep);
 
-				for (var i = 1; i < yValues.length; i++) {
-					var x = i * xStep + defaults.gutter.x;
-					var y = invertY(yValues[i] * yStep);
-					path += 'L' + x + ',' + y;
-				}
+            for (var i = 1; i < yValues.length; i++) {
+                var x = i * xStep + defaults.gutter.x;
+                var y = invertY(yValues[i] * yStep);
+                path += 'L' + x + ',' + y;
+            }
 
-				return path;
-			}
+            return path;
+        }
 
-			function createArea(yValues) {
-				var path = createPath(yValues);
+        function createArea(yValues) {
+            var path = createPath(yValues);
 
-				path += 'L' + defaults.gutter.x + ',' + invertY(0);
-				path += 'Z';
+            path += 'L' + defaults.gutter.x + ',' + invertY(0);
+            path += 'Z';
 
-				return path;
-			}
+            return path;
+        }
 
-			function createHAxisPath(steps) {
-				var xStep = (width - defaults.gutter.x) / (steps - 1);
-				var path = '';
+        function createHAxisPath(steps) {
+            var xStep = (width - defaults.gutter.x) / (steps - 1);
+            var path = '';
 
-				for (var i = 0; i < steps; i++) {
-					var x = i * xStep + defaults.gutter.x;
-					path += 'M' + x + ',' + 0;
-					path += 'L' + x + ',' + invertY(0);
-				}
+            for (var i = 0; i < steps; i++) {
+                var x = i * xStep + defaults.gutter.x;
+                path += 'M' + x + ',' + 0;
+                path += 'L' + x + ',' + invertY(0);
+            }
 
-				return path;
-			}
+            return path;
+        }
 
-			function animatePath(target, newPath) {
-				target.animate({
-					path: newPath
-				}, defaults.animation.speed, defaults.animation.type);
-			}
+        function animatePath(target, newPath) {
+            target.animate({
+                path: newPath
+            }, defaults.animation.speed, defaults.animation.type);
+        }
 
-			function plotLine(dataStart, dataStop, color) {
-				var burndownPathStart = createPath(dataStart);
-				var burndownPathStop = createPath(dataStop);
+        function plotLine(dataStart, dataStop, color) {
+            var burndownPathStart = createPath(dataStart);
+            var burndownPathStop = createPath(dataStop);
 
-				var burndown = paper.path(burndownPathStart);
-				burndown.attr({
-					'stroke-width': (color && 2) || 3,
-					stroke: color
-				});
+            var burndown = paper.path(burndownPathStart);
+            burndown.attr({
+                'stroke-width': (color && 2) || 3,
+                stroke: color
+            });
 
-				setTimeout(function() {
-					animatePath(burndown, burndownPathStop);
-				}, defaults.animation.delay);
-				defaults.animation.delay += 200;
+            setTimeout(function() {
+                animatePath(burndown, burndownPathStop);
+            }, defaults.animation.delay);
+            defaults.animation.delay += 200;
 
-				return burndown;
-			}
+            return burndown;
+        }
 
-			function plotBurndown(burndownDataStart, burndownDataStop, color) {
-				var burndownAreaStart = createArea(burndownDataStart);
-				var burndownAreaStop = createArea(burndownDataStop);
+        function plotBurndown(burndownDataStart, burndownDataStop, color) {
+            var burndownAreaStart = createArea(burndownDataStart);
+            var burndownAreaStop = createArea(burndownDataStop);
 
-				var burndownArea = paper.path(burndownAreaStart);
-				burndownArea.attr({
-					'stroke-width': 0,
-					fill: color
-				});
+            var burndownArea = paper.path(burndownAreaStart);
+            burndownArea.attr({
+                'stroke-width': 0,
+                fill: color
+            });
 
-				var burndown = plotLine(burndownDataStart, burndownDataStop, color);
+            var burndown = plotLine(burndownDataStart, burndownDataStop, color);
 
-				setTimeout(function() {
-					animatePath(burndownArea, burndownAreaStop);
-				}, defaults.animation.delay);
-				setTimeout(function() {
-					burndownArea.animate({
-						'fill-opacity': defaults.areaOpacity
-					}, defaults.animation.speed, '>');
-				}, defaults.animation.delay2);
+            setTimeout(function() {
+                animatePath(burndownArea, burndownAreaStop);
+            }, defaults.animation.delay);
+            setTimeout(function() {
+                burndownArea.animate({
+                    'fill-opacity': defaults.areaOpacity
+                }, defaults.animation.speed, '>');
+            }, defaults.animation.delay2);
 
-				return {
-					line: burndown,
-					area: burndownArea
-				};
-			}
+            return {
+                line: burndown,
+                area: burndownArea
+            };
+        }
 /*
-		function plotGuideline(guidelineDataStart, guidelineDataStop) {
-			var guidelineStart = createPath(guidelineDataStart);
-			var guidelineStop = createPath(guidelineDataStop);
+    function plotGuideline(guidelineDataStart, guidelineDataStop) {
+        var guidelineStart = createPath(guidelineDataStart);
+        var guidelineStop = createPath(guidelineDataStop);
 
-			var guideline = paper.path(guidelineStart);
-			guideline.attr({ 'stroke-width': 1, stroke: '#AAA' });
+        var guideline = paper.path(guidelineStart);
+        guideline.attr({ 'stroke-width': 1, stroke: '#AAA' });
 
-			setTimeout(function () {
-				animatePath(guideline, guidelineStop);
-			}, 1000);
+        setTimeout(function () {
+            animatePath(guideline, guidelineStop);
+        }, 1000);
 
-			return guideline;
-		}
+        return guideline;
+    }
 */
-			function plotHAxis(labels) {
-				var xStep = (width - defaults.gutter.x) / (labels.length - 1);
+        function plotHAxis(labels) {
+            var xStep = (width - defaults.gutter.x) / (labels.length - 1);
 
-				var labelArray = [];
+            var labelArray = [];
 
-				for (var i = labels.length; i--;) {
-					var x = defaults.gutter.x + xStep * i;
-					var y = height;
-					labelArray[i] = paper.text(x, y, labels[i]).attr(defaults.font);
-				}
+            for (var i = labels.length; i--;) {
+                var x = defaults.gutter.x + xStep * i;
+                var y = height;
+                labelArray[i] = paper.text(x, y, labels[i]).attr(defaults.font);
+            }
 
-				var vAxisPath = createHAxisPath(labels.length);
-				var grid = paper.path(vAxisPath).attr({
-					stroke: defaults.axisColor
-				});
+            var vAxisPath = createHAxisPath(labels.length);
+            var grid = paper.path(vAxisPath).attr({
+                stroke: defaults.axisColor
+            });
 
-				return {
-					grid: grid,
-					labels: labelArray
-				};
-			}
+            return {
+                grid: grid,
+                labels: labelArray
+            };
+        }
 
-			function plotVAxis() {
-				var label1 = paper.text(0, invertY(defaults.gutter.y), '0\nTasks').attr(defaults.font);
-				var label2 = paper.text(0, defaults.gutter.y, yMax + '\nTasks').attr(defaults.font);
+        function plotVAxis() {
+            var label1 = paper.text(0, invertY(defaults.gutter.y), '0\nTasks').attr(defaults.font);
+            var label2 = paper.text(0, defaults.gutter.y, yMax + '\nTasks').attr(defaults.font);
 
-				return [label1, label2];
-			}
+            return [label1, label2];
+        }
 
 
-			var guidelineDataStart = [];
-			var burndownDataStart = [];
+        var guidelineDataStart = [];
+        var burndownDataStart = [];
 
-			for (var gi = 0, gn = guidelineDataStop.length; gi < gn; gi++)
-				guidelineDataStart.push(0);
-			for (var bi = 0, bn = burndownDataStop[0].length; bi < bn; bi++)
-				burndownDataStart.push(0);
+        for (var gi = 0, gn = guidelineDataStop.length; gi < gn; gi++)
+            guidelineDataStart.push(0);
+        for (var bi = 0, bn = burndownDataStop[0].length; bi < bn; bi++)
+            burndownDataStart.push(0);
 
-			burndown.burndown = plotBurndown(burndownDataStart, burndownDataStop[0], (colors && colors[0]) || defaults.colors.burndown);
-			for (var i = 1, n = burndownDataStop.length; i < n; i++)
-				plotLine(burndownDataStart, burndownDataStop[i], (colors && colors[i]) || defaults.colors.stroke);
-			burndown.hAxis = plotHAxis(labels);
-			burndown.vAxis = plotVAxis();
-			//burndown.guideline = plotGuideline(guidelineDataStart, guidelineDataStop);
-			return burndown;
-		};
+        burndown.burndown = plotBurndown(burndownDataStart, burndownDataStop[0], (colors && colors[0]) || defaults.colors.burndown);
+        for (var i = 1, n = burndownDataStop.length; i < n; i++)
+            plotLine(burndownDataStart, burndownDataStop[i], (colors && colors[i]) || defaults.colors.stroke);
+        burndown.hAxis = plotHAxis(labels);
+        burndown.vAxis = plotVAxis();
+        //burndown.guideline = plotGuideline(guidelineDataStart, guidelineDataStop);
+        return burndown;
+	};
 
 
 	r.fn.burndown3 = burndown;
