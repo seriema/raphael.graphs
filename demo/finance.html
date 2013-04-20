@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <script src="raphael.js"></script>
+        <script src="g.raphael-min.js"></script>
+        <script src="g.bar-min.js"></script>
+        <script>
+			window.onload = function () {
+				function plotValues(bars) {
+					var target = bars[0];
+					var actual = bars[1];
+
+					for (var i = 0, length = actual.length; i < length; i++) {
+						var x = actual[i] * 5.5 + 30;
+						var y = i * 26 + 30;
+						paper.text(x, y, Math.floor((actual[i] / target[i]) * 100) + '%');
+					}
+				}
+				/*
+				function plotValues(bars) {
+				for (var data = 0, dataL = bars.length; data < dataL; data++) {
+				for (var value = 0, valueL = bars[data].length; value < valueL; value++) {
+				var x = bars[data][value] * 5.5 + 20;
+				var y = value * 26 + data * 10 + 20;
+				paper.text(x,y, bars[data][value]);
+				}
+				}
+				}
+				*/
+				var x = 10;
+				var y = 10;
+				var width = 300;
+				var height = 220;
+				var bars = [
+					[55, 20, 13, 32, 50, 10, 20, 30],
+					[10, 2, 1, 5, 32, 13, 20, 35]
+				];
+				var options = {
+					colors: ['#2375BB', '#24b358']
+				};
+
+				var paper = Raphael("holder", width + 50, height + 50);
+				paper.hbarchart(x, y, width, height, bars, options);
+				plotValues(bars);
+			};
+        </script>
+    </head>
+    <body>
+        <div id="holder"></div>
+    </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script src="../libs/raphael/raphael-min.js"></script>
+		<script src="../dist/raphael.graphs.min.js"></script>
+		<script>
+			window.onload = function () {
+				var guidelineDataStart = [0, 0];
+				var guidelineDataStop = [29, 0];
+				var burndownDataStart = [0, 0, 0, 0];
+				var burndownDataStop = [29, 25, 8, 0];
+				var labels = ['w9', 'w10', 'w11', 'w12'];
+
+				var width = 680;
+				var height = 200;
+				var yMax = 29;
+
+				var paper = Raphael('paper', width, height + 10);
+				paper.burndown(guidelineDataStart, guidelineDataStop, burndownDataStart, burndownDataStop, labels, width, height, yMax);
+			}
+		</script>
+	</head>
+	<body class="raphael">
+		<div id="paper"></div>
+	</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "raphael.graphs",
+  "version": "0.0.0",
+  "dependencies": {
+    "g.raphael": "~0.4.1",
+    "raphael": "~2.1.0",
+    "jquery": "~1.9.1",
+    "qunit": "~1.11.0"
+  }
+}

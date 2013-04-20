@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+		<div id="paper"></div>
+
+		<script src="../libs/raphael/raphael-min.js"></script>
+		<script src="../dist/raphael.graphs.min.js"></script>
+
+        <script>
+			(function () {
+				var paper = { width: 250, height: 250, selector: 'holder' };
+				var arrow = { angle: 45, src: 'arrow-right.jpg', width: 80, height: 80, animTime: 1000, animType: "bounce" };
+				var circle = { color: '#E0E0E0', thickness: 10 };
+				var arc1 = { color: '#5EA1B5', completeness: 40, thickness: 40, total: 100, animTime: 1500, animType: "bounce" };
+				var arc2 = { color: '#A8AA31', completeness: 90, thickness: 40, total: 100, animTime: 1500, animType: "bounce" };
+				var background = { color: '#E0E0E0' };
+
+				var width = 680;
+				var height = 200;
+				var paper = Raphael('paper', width, height + 10);
+
+				paper.pauline(paper, arrow, circle, arc1, arc2, background);
+			}());
+        </script>
+	</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "Raphaël Graphs",
+  "version": "0.0.1",
+  "main": "/dist/raphael.graphs.min.js",
+  "dependencies": {
+    "g.raphael": "~0.4.1",
+    "qunit": "~1.11.0",
+    "raphael": "~2.1.0"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ]
+}

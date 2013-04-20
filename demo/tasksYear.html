@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script src="../libs/raphael/raphael-min.js"></script>
+		<script src="../dist/raphael.graphs.min.js"></script>
+		<script>
+			window.onload = function () {
+				var guidelineDataStart = [0, 0];
+				var guidelineDataStop = [176, 0];
+				var burndownDataStart = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+				var burndownDataStop = [176, 174, 150, 132, 95, 85, 70, 45, 29, 25, 8, 0];
+				var labels = ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'];
+
+				var width = 680;
+				var height = 200;
+				var yMax = 176;
+
+				var paper = Raphael('paper', width, height + 10);
+				paper.burndown(guidelineDataStart, guidelineDataStop, burndownDataStart, burndownDataStop, labels, width, height, yMax);
+			}
+		</script>
+	</head>
+	<body class="raphael">
+		<div id="paper"></div>
+	</body>
+</html>

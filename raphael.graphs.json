@@ -1,0 +1,27 @@
+{
+  "name": "raphael.graphs",
+  "title": "Raphaël Graphs",
+  "description": "Simple and pretty graphs for Raphaël. Such as burndownchart and fancy doughnutchart.",
+  "version": "0.0.1",
+  "homepage": "https://github.com/seriema/jp.js",
+  "author": {
+    "name": "John-Philip Johansson",
+    "email": "seriema@gmail.com",
+    "url": "http://johansson.jp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/seriema/jp.js"
+  },
+  "bugs": "https://github.com/seriema/jp.js/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/seriema/jp.js/blob/master/raphael.graphs/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {
+    "raphael": "*"
+  },
+  "keywords": ["graphs", "raphael", "burndown", "burndownchart", "doughnutchart"]
+}
